@@ -1,4 +1,5 @@
 import os
+import sys
 import requests
 import pandas as pd
 from nltk.tokenize import word_tokenize
@@ -87,8 +88,8 @@ def export_df(
     try:
         if not os.path.exists(out_location):
             os.makedirs(out_location)
-        
-        df.to_json(out_location + out_file, orient='records', mode='w')
+
+        df.to_json(out_location + out_file, orient='records', lines=True, mode='w')
     except Exception as e:
         error_msg(
             method_name=sys._getframe().f_code.co_name,
