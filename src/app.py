@@ -1,15 +1,15 @@
-from constants import (
-    ENDPOINT, 
-    LANDING_ZONE, 
-    CURATED_ZONE
-)
-
 from tools import (
     api_request,
     create_df,
     export_df,
     ml_tokenize,
     ml_stemming
+)
+
+from constants import (
+    ENDPOINT,
+    LANDING_ZONE,
+    CURATED_ZONE
 )
 
 
@@ -22,7 +22,7 @@ def lambda_handler(event, context):
         event: Data for the lambda function from invoking the service.
     """
 
-    # extracting data from API
+    # extract data from API
     dict_products = api_request(
         api_endpoint=ENDPOINT
     )
@@ -37,7 +37,7 @@ def lambda_handler(event, context):
     )
 
     # =======================================================================
-    # preparing for ML 
+    # prepare for ML
     # =======================================================================
 
     # rename columns
@@ -56,8 +56,8 @@ def lambda_handler(event, context):
     df_products['description_tokenize'] = df_products['description'].apply(ml_tokenize)
 
     # stemming text
-    df_products['title_stemm'] = df_products['title'].apply(ml_stemming)
-    df_products['description_stemm'] = df_products['description'].apply(ml_stemming)
+    df_products['title_stemm'] = df_products['title_tokenize'].apply(ml_stemming)
+    df_products['description_stemm'] = df_products['description_tokenize'].apply(ml_stemming)
 
     export_df(
         df=df_products,
