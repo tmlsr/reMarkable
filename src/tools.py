@@ -29,7 +29,9 @@ def api_request(
         )
 
         if response.status_code == 200:
+
             return response.json()
+
         else:
             msg = f'API call failed with status code: {response.status_code}'
             print(msg)
@@ -57,10 +59,11 @@ def create_df(
     day, month, year = date_today()
 
     try:
-        
         df = pd.json_normalize(dict)
         df['load_date'] = f'{year}-{month}-{day}'
+
         return df
+
     except Exception as e:
         error_msg(
             method_name=sys._getframe().f_code.co_name,
@@ -89,7 +92,13 @@ def export_df(
         if not os.path.exists(out_location):
             os.makedirs(out_location)
 
-        df.to_json(out_location + out_file, orient='records', lines=True, mode='w')
+        df.to_json(
+            out_location + out_file,
+            orient='records',
+            lines=True,
+            mode='w'
+        )
+
     except Exception as e:
         error_msg(
             method_name=sys._getframe().f_code.co_name,
@@ -178,7 +187,7 @@ def ml_tokenize(
 
 
 def ml_stemming(
-        text: str
+        tokens: list
 ) -> list:
     """
     This function for stemming a text.
@@ -190,15 +199,10 @@ def ml_stemming(
         list: A list of stemmed words.
     """
     try:
-        tokens = word_tokenize(text)
-        tokens = [word.lower() for word in tokens if word.isalpha()]
-        stop_words = set(stopwords.words('english'))
-        tokens = [word for word in tokens if word not in stop_words]
-
         porter_stemmer = PorterStemmer()
         stemmed_tokens = [porter_stemmer.stem(word) for word in tokens]
 
-        return ' '.join(stemmed_tokens)
+        return stemmed_tokens
 
     except Exception as e:
         error_msg(
