@@ -20,9 +20,9 @@ Remember to bring the code to the interview and share the code with us preferabl
 
 ## Explanation
 
- I recommend to create a new virtual python environment with [pyenv](https://github.com/pyenv/pyenv) to have a clean and isolated python to test the project.
- 
- After the virtual environment is created:
+ I recommend creating a new virtual Python environment with [pyenv](https://github.com/pyenv/pyenv) to have a clean and isolated Python to test the project.
+
+After creating the virtual environment
 
  ### Clone repository
  ```shell
@@ -34,7 +34,7 @@ Remember to bring the code to the interview and share the code with us preferabl
 $ poetry install
 ```
 
-It's necessary to download and install needed libraries for nltk:
+You'll need to download and install the necessary libraries for nltk:
 ```shell
 $ python -m nltk.downloader all     
 ```
@@ -46,20 +46,17 @@ $ python src/app.py
 ```
 
 ### datalake
-Used as storage solution to store the data as in different zones.
+Used as storage solution to store the data in different zones and for partitioning.
 
 landing_zone:
 - RAW data
-- Partitioned
-- load_date added 
 
 curated_zone:
 - ML prepared data
-- Partitioned 
 
 
 ### data_exploration
-Jupyter notebook is used to do first and simple data exploration tasks.
+The Jupyter notebook is used for initial and simple data exploration tasks.
 
 
 
