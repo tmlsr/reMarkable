@@ -86,7 +86,7 @@ def export_df(
     day, month, year = date_today()
 
     out_file = f'products_{year}{month}{day}.json'
-    out_location = f'{out_path}/products/{year}/{month}/{day}/'
+    out_location = f'{out_path}/products/year={year}/month={month}/day={day}/'
 
     try:
         if not os.path.exists(out_location):
@@ -95,7 +95,6 @@ def export_df(
         df.to_json(
             out_location + out_file,
             orient='records',
-            lines=True,
             mode='w'
         )
 

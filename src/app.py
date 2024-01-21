@@ -40,22 +40,16 @@ def lambda_handler(event, context):
     # prepare for ML
     # =======================================================================
 
-    # rename columns
-    df_products.rename(
-        columns={
-          'rating.rate': 'rating_rate',
-          'rating.count': 'rating_count'
-        }
-    )
-
     # drop duplicates
     df_products = df_products.drop_duplicates()
 
     # tokenize text
+    df_products['category_tokenize'] = df_products['category'].apply(ml_tokenize)
     df_products['title_tokenize'] = df_products['title'].apply(ml_tokenize)
     df_products['description_tokenize'] = df_products['description'].apply(ml_tokenize)
 
     # stemming text
+    df_products['category_stemm'] = df_products['category_tokenize'].apply(ml_stemming)
     df_products['title_stemm'] = df_products['title_tokenize'].apply(ml_stemming)
     df_products['description_stemm'] = df_products['description_tokenize'].apply(ml_stemming)
 
